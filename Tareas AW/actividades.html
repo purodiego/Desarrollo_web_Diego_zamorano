@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Actividades</title>
+  <style>
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 20px;
+    }
+
+    th, td {
+      padding: 8px;
+      border: 1px solid #333;
+      text-align: center;
+    }
+
+    th {
+      background-color: #f2f2f2;
+    }
+  </style>
+</head>
+<body>
+  <h2>Listado de Actividades</h2>
+  <button style="margin-top: 20px; padding: 10px 20px;" onclick="window.location.href='Tarea1.html'">
+    ⬅ Volver al inicio
+  </button>
+  <table id="tablaActividades">
+    <thead>
+      <tr>
+        <th>Inicio</th>
+        <th>Término</th>
+        <th>Comuna</th>
+        <th>Sector</th>
+        <th>Tema</th>
+        <th>Nombre Organizador</th>
+        <th>Total Fotos</th>
+      </tr>
+    </thead>
+    <tbody>
+      <!-- Actividades cargadas desde localStorage -->
+    </tbody>
+  </table>
+
+  <script src="actividades.js"></script>
+</body>
+</html>

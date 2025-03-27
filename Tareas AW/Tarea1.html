@@ -1,0 +1,254 @@
+<!DOCTYPE HTML>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tarea 1</title>
+    <style>
+        table {
+            margin-top: 20px;
+            border-collapse: collapse;
+            width: 80%;
+        }
+        th, td {
+            border: 1px solid #333;
+            padding: 8px;
+            text-align: center;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+
+        #formulario {
+            display: none;
+            margin: 20px auto;
+            width: 60%;
+            border: 1px solid #ccc;
+            padding: 15px;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+
+        input {
+            width: 150px;
+            padding: 8px;
+        }
+
+        .botones {
+            margin-top: 15px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div>
+        <center>
+            <h1>Bienvenidos a Beauchef 850</h1>
+        </center>
+            <button type="button"style="margin-top: 20px; padding: 10px 20px;" id="btn-AddAct">Agregar actividad</button>
+            <a href="actividades.html">
+                <button type="button" style="margin-top: 20px; padding: 10px 20px;">Listado de actividades</button>
+            </a>
+            <a href="estadisticas.html">
+                <button type="button" style="margin-top: 20px; padding: 10px 20px;"">Estadísticas</button>
+            </a>
+       
+
+            <form id="formulario">
+                <h3>Datos de la Actividad</h3>
+              
+                <table style="width: 100%; border-collapse: collapse; border: 1px solid #ccc;">
+                  <thead>
+                    <tr>
+                      <th style="text-align:left; padding: 8px;">Dato</th>
+                      <th style="text-align:left; padding: 8px;">Presentación</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+              
+                    <tr>
+                        <td colspan="2" style="font-weight: bold; background-color: white; text-align: left;">¿Dónde?</td>
+                      </tr>
+                    <tr>
+                      <td style="padding: 8px;">Región</td>
+                      <td <label for="region"></label>
+                      <select name="region" id="region" required>
+                        <option value="">Seleccione una región</option>
+                        <option value="RM">RM</option>
+                        <option value="Valparaíso">Valparaíso</option>
+                       </select> </td> 
+                    </tr>
+
+                    
+                    <tr>
+                        <td style="padding: 8px;">Comuna</td>
+                        <td>
+                          <select name="comuna" id="comuna" required>
+                            <option value="">Seleccione una comuna</option>
+                          </select>
+                        </td>
+                      </tr>
+
+                    <tr>
+                        <td style="padding: 8px; ">Sector</td>
+                        <td>
+                        <input id="sector" name="sector" type="text" maxlength="100" > 
+                        </td>    
+                    </tr>
+
+                    <tr>
+                        <td colspan="2" style="font-weight: bold; background-color: white; text-align: left;">¿Quién organiza?</td>
+                      </tr>
+
+                    <tr>
+                        <td style="padding: 8px; ">Nombre</td>
+                        <td>
+                        <input id="nombre" name="nombre" type="text" maxlength="200" required> 
+                        </td>    
+                    </tr>
+
+                    <tr>
+                        <td style="padding: 8px; ">Email</td>
+                        <td>
+                        <input id="email" name="email" type="email" maxlength="100" required> 
+                        </td>    
+                    </tr>
+
+                    <tr>
+                        <td style="padding: 8px; ">Teléfono</td>
+                        <td>
+                        <input id="tel" name="tel" type="tel" placeholder="+569 XXXX XXXX"> 
+                        </td>    
+                    </tr>
+
+                    <tr>
+                        <td style="padding: 8px; ">Contactar por</td>
+                        <td>
+                            <select id="contacto" name="contacto">
+                                <option value="">Seleccione una opción</option>
+                                <option value="whatsapp">WhatsApp</option>
+                                <option value="instagram">Instagram</option>
+                                <option value="otra">Otra</option>
+                              </select>
+
+                              <div id="inputContacto" style="margin-top: 8px; display: none;">
+                                <label id="labelContacto" for="contactoValor"></label>
+                                <input type="text" id="contactoValor" name="contactoValor" />
+                              </div>
+                        </td>    
+                    </tr>
+
+                    <tr>
+                        <td colspan="2" style="font-weight: bold; background-color: white; text-align: left;">¿Cuándo y de qué trata?</td>                        
+                    </tr>
+
+                    <tr>
+                        <td style="padding: 8px; ">Fecha inicio</td>
+                        <td>
+                            <input id="inicio" name="inicio" type="datetime-local" required> 
+                        </td>   
+                    </tr>
+                    
+                    <tr>
+                        <td style="padding: 8px; ">Fecha fin</td>
+                        <td>
+                            <input id="fin"type="datetime-local" disabled> 
+                            <input type="hidden" id="finOculto" name="fin">
+                        </td>   
+                    </tr>
+
+                    <tr>
+                        <td style="padding: 8px;">Descripción</td>
+                        <td>
+                          <textarea id="descripcion" name="descripcion" cols="50" rows="10" maxlength="500" placeholder="Escribe una descripción..."></textarea>
+                        </td>
+                      </tr>
+                      
+                    <tr>
+                        <td style="padding: 8px; ">Tema</td>
+                        <td>
+                            <select id="tema" name="tema" required>
+                                <option value="">Seleccione una opción</option>
+                                <option value="musica">Musica</option>
+                                <option value="deporte">Deporte</option>
+                                <option value="ciencias">Ciencias</option>
+                                <option value="religion">Religion</option>
+                                <option value="politica">Politica</option>
+                                <option value="tecnologia">Tecnologia</option>
+                                <option value="juegos">Juegos</option>
+                                <option value="baile">Baile</option>
+                                <option value="otro">Otro</option>
+                              </select>
+
+                              <div id="temaPersonalizadoContainer" style="display: none; margin-top: 8px;">
+                                <label for="temaPersonalizado"></label>
+                                <input type="text" id="temaPersonalizado" name="temaPersonalizado" placeholder="Especifique" minlength="3" maxlength="15" required>
+                              </div>
+                              
+                        </td>    
+                    </tr>
+
+                    <tr>
+                        <td style="padding: 8px;">Foto</td>
+                        <td>
+                            <input id="foto" name="foto" type="file" accept="image/*" multiple>
+                        </td>
+                      </tr>
+
+                  </tbody>
+                </table>
+              
+                <div style="text-align: center; margin-top: 20px;">
+                  <button type="button" onclick="validarForm()">Guardar</button>
+                  <button type="button" onclick="document.getElementById('formulario').style.display='none'">Cancelar</button>
+                </div>
+              </form>
+              
+
+        <center>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Inicio</th>
+                        <th>Término</th>
+                        <th>Comuna</th>
+                        <th>Sector</th>
+                        <th>Tema</th>
+                        <th>Foto</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                    </tr>
+                    <tr>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                        <td>X</td>
+                    </tr>
+                </tbody>
+            </table>
+        </center>
+    </div>
+
+    <!-- Script para mostrar el formulario -->
+    <script>
+        document.getElementById("btn-AddAct").addEventListener("click", function() {
+            document.getElementById("formulario").style.display = "block";
+        });
+    </script>
+    <script src="formulario.js"></script>
+</body>
+
+</html>

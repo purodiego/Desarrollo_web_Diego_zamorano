@@ -1,0 +1,76 @@
+
+<!DOCTYPE HTML>
+<html lang = "es">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Proyecto de JavaScript</title>
+    </head>
+    <body>
+        <div>
+            <h3>Parte 1: Mensaje de Bienvenida</h3>
+            <label for="nombre">Ingrese su nombre:</label>
+            <input type="text" id="nombre">
+            <button type="button" id="btn-enviar">Enviar</button>
+            <p id="mensaje"></p>
+        </div>
+
+        <hr>
+
+        <div>
+            <h3>Parte 2: Contador de Calificación</h3>
+            <p>Nota actual: <span id="calificacion">1</span></p>
+            <button type="button" id="btn-disminuir">Disminuir</button>
+            <button type="button" id="btn-aumentar">Aumentar</button>
+        </div>
+        <script>
+            // Obtener elementos para el mensaje de bienvenida
+            let NombreInput = document.getElementById("nombre")
+            let MensajeInput = document.getElementById("mensaje")
+            
+            // Obtener elementos para el contador
+            let NotaInput = document.getElementById("calificacion")
+            
+            // Calificación inicial
+
+
+            // Función para mostrar mensaje de bienvenida
+            const mostrarMensaje = () => {
+                nombre = NombreInput.value;
+                if (nombre != "") {
+                MensajeInput.style.color = "blue";
+                MensajeInput.style.fontWeight = "bold"; 
+                MensajeInput.textContent = "Bienvenido, " + nombre + "!";
+                } else{
+                    MensajeInput.textContent = "Ingresa tu nombre";
+                }
+            };
+            
+            // Función para aumentar la calificación
+            const aumentarCalificacion = () => {
+                let nota = parseFloat(NotaInput.textContent);
+                if (nota < 7) {
+                    nota += 0.1;
+                    NotaInput.textContent = nota.toFixed(1);
+                }
+            
+            };
+            
+            // Función para disminuir la calificación
+            const disminuirCalificacion = () => {
+                let nota = parseFloat(NotaInput.textContent);
+                if (nota > 1) {
+                    nota -= 0.1;
+                    NotaInput.textContent = nota.toFixed(1);
+                }
+            
+            
+            };
+            
+            // Asignar eventos
+            document.getElementById("btn-enviar").addEventListener("click", mostrarMensaje);
+            document.getElementById("btn-aumentar").addEventListener("click", aumentarCalificacion);
+            document.getElementById("btn-disminuir").addEventListener("click", disminuirCalificacion);
+            </script>
+    </body>
+</html>
