@@ -1,19 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Detalle Actividad</title>
+  <style>
+    .button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      text-align: center;
+    }
+  </style>
+</head>
 <body>
-    <div id="detalleActividad"></div>
-  
-    <div style="margin-top: 20px;">
-      <button onclick="window.location.href='actividades.html'">Volver al listado</button>
-      <button onclick="window.location.href='Tarea1.html'">Volver a inicio</button>
-    </div>
-  
-    <!-- Vista ampliada de imagen -->
-    <div id="visor" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%;
-         background:rgba(0,0,0,0.8); justify-content:center; align-items:center;">
-      <img id="visorImg" src="" style="max-width:800px; max-height:600px;">
-      <br>
-      <button onclick="cerrarImagen()" style="margin-top: 10px;">Cerrar</button>
-    </div>
-  
-    <script src="detalle.js"></script>
-  </body>
-  
+
+  <div id="detalleActividad"></div>
+
+  <div style="margin-top: 20px;">
+    <button type="button" style="margin-top: 20px; padding: 10px 20px; text-align: center" onclick="window.location.href='actividades.html'">Volver al listado</button>
+    <button type="button" style="margin-top: 20px; padding: 10px 20px; text-align: center" onclick="window.location.href='Tarea1.html'">Volver a inicio</button>
+  </div>
+
+  <!-- Visor de imagen ampliada -->
+  <div id="visor" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.8); justify-content: center; align-items: center;">
+    <img id="visorImg" src="" style="width: 800px; height: 600px; object-fit: contain;">
+    <button onclick="cerrarImagen()" style="position: absolute; top: 20px; right: 20px; background: red; color: white; border: none; padding: 10px; cursor: pointer;">Cerrar</button>
+  </div>
+
+  <script src="detalle.js"></script>
+</body>
+</html>

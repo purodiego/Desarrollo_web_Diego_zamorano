@@ -1,12 +1,105 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html lang="es">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Estadisticas</title>
+  <meta charset="UTF-8">
+  <title>Estadísticas</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    canvas {
+      max-width: 700px;
+      margin: 40px auto;
+      display: block;
+    }
+    .volver {
+      text-align: center;
+      margin-top: 40px;
+    }
+  </style>
 </head>
 <body>
-    <h1>Estadisticas de las actividades</h1>
-    <p>Contenido en construcción...</p>
+
+  <h2 style="text-align:center">Estadísticas de Actividades</h2>
+
+  <canvas id="graficoLineas"></canvas>
+
+  <canvas id="graficoTorta"></canvas>
+
+  <canvas id="graficoBarras"></canvas>
+
+  <div class="volver">
+    <a href="Tarea1.html">
+      <button type="button" style="margin-top: 20px; padding: 10px 20px;">Volver a la portada</button>
+    </a>
+  </div>
+
+  <script>
+    new Chart(document.getElementById("graficoLineas"), {
+      type: 'line',
+      data: {
+        labels: ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes", "Sábado", "Domingo"],
+        datasets: [{
+          label: "Actividades por día",
+          data: [3, 5, 2, 6, 4, 7, 1],
+          borderColor: "blue",
+          fill: false,
+          tension: 0.3
+        }]
+      }
+    });
+
+
+    new Chart(document.getElementById("graficoTorta"), {
+      type: 'pie',
+      data: {
+        labels: ["Música", "Deporte", "Ciencia", "Baile", "Juegos"],
+        datasets: [{
+          label: "Tipo de actividad",
+          data: [6, 8, 4, 5, 7],
+          backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56", "#81C784", "#BA68C8"]
+        }]
+      }
+    });
+
+
+    new Chart(document.getElementById("graficoBarras"), {
+      type: 'bar',
+      data: {
+        labels: ["Enero", "Febrero", "Marzo", "Abril"],
+        datasets: [
+          {
+            label: "Mañana",
+            data: [3, 5, 4, 6],
+            backgroundColor: "#42A5F5"
+          },
+          {
+            label: "Mediodía",
+            data: [2, 3, 5, 4],
+            backgroundColor: "#FFB74D"
+          },
+          {
+            label: "Tarde",
+            data: [4, 2, 3, 5],
+            backgroundColor: "#66BB6A"
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          x: {
+            stacked: false
+          },
+          y: {
+            beginAtZero: true,
+            title: {
+              display: true,
+              text: 'Cantidad de actividades'
+            }
+          }
+        }
+      }
+    });
+  </script>
 </body>
 </html>
+

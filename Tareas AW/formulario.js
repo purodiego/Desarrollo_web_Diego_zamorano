@@ -12,10 +12,10 @@ document.addEventListener("DOMContentLoaded", function () {
       const regionSeleccionada = this.value;
       const comunas = comunasPorRegion[regionSeleccionada] || [];
   
-      // Limpiar opciones anteriores
+    
       comunaSelect.innerHTML = '<option value="">Seleccione una comuna</option>';
   
-      // Agregar nuevas opciones
+      
       comunas.forEach(comuna => {
         const opcion = document.createElement("option");
         opcion.value = comuna;
@@ -70,10 +70,30 @@ document.addEventListener("DOMContentLoaded", function () {
     } else {
       containerTemaOtro.style.display = "none";
       inputTemaOtro.removeAttribute("required");
-      inputTemaOtro.value = ""; // Limpiar si cambia de opción
+      inputTemaOtro.value = ""; 
     }
   });
 });
+
+
+//agregar foto
+function agregarOtraFoto() {
+  const contenedor = document.getElementById("contenedorFotos");
+  const cantidadActual = contenedor.querySelectorAll("input[type='file']").length;
+
+  if (cantidadActual >= 5) {
+    alert("Solo puedes agregar hasta 5 fotos.");
+    return;
+  }
+
+  const nuevoInput = document.createElement("input");
+  nuevoInput.type = "file";
+  nuevoInput.name = "foto";
+  nuevoInput.accept = "image/*";
+  nuevoInput.className = "input-foto";
+  contenedor.appendChild(nuevoInput);
+}
+
   
 //contactar por
 function configurarSelectorDeContacto() {
@@ -125,8 +145,8 @@ document.addEventListener("DOMContentLoaded", function () {
 
 //validador telefono
 let validarTel = (telefono) => {
-  const regex = /^\+569d{8}$/;
-  return telefono === "" || regex.test(telefono); // opcional: si vacío está OK
+  const regex = /^\+569\d{8}$/;
+  return telefono === "" || regex.test(telefono); 
 };
 
 //validador email
@@ -135,33 +155,36 @@ let validarEmail = (email) => {
     return regex.test(email) && email.length <= 100;
   };
 
-//Foto
+//Fotos
 function validarCantidadDeFotos() {
-  const input = document.getElementById("foto");
-  const archivos = input.files;
+  const inputs = document.querySelectorAll(".input-foto");
+  let total = 0;
 
-  if (archivos.length < 1 || archivos.length > 5) {
-    return false;
-  }
-  return true;
+  inputs.forEach(input => {
+    if (input.files.length > 0) {
+      total++;
+    }
+  });
+
+  return total >= 1 && total <= 5;
 }
+
 
 
 //validar fecha inicio
 function validarFechaInicio() {
-  const input = document.getElementById("inicio");
-  const valor = input.value;
+  const inputInicio = document.getElementById("inicio");
+  const inputFin = document.getElementById("finOculto"); 
+  const valorInicio = inputInicio.value;
+  const valorFin = inputFin.value;
 
-  if (!valor) return false; // No seleccionó nada
+  if (!valorInicio || !valorFin) return false; 
 
-  const ahora = new Date();
-  const fechaSeleccionada = new Date(valor);
+  const fechaInicio = new Date(valorInicio);
+  const fechaFin = new Date(valorFin);
 
-  // Opcional: quitar los segundos/milisegundos para evitar falsos negativos
-  ahora.setSeconds(0, 0);
-  fechaSeleccionada.setSeconds(0, 0);
-
-  return fechaSeleccionada >= ahora;
+ 
+  return fechaInicio < fechaFin;
 }
 
 
@@ -173,95 +196,156 @@ function validarNombre (nombre) {
 //validar select
 function validarSelect(selectId) {
   const valor = document.getElementById(selectId).value;
-  return valor !== ""; // devuelve true si hay algo seleccionado
+  return valor !== ""; 
 }
 
 
-const validarForm = () => {
+function validarForm() {
+  let emailInput = document.getElementById("email");
+  let telInput = document.getElementById("tel");
+  let nombreInput = document.getElementById("nombre");
 
-    //obtenemos dom
+  let msg = "";
 
-    let emailInput = document.getElementById("email");
-    let telInput = document.getElementById("tel");
-    let nombreInput = document.getElementById("nombre");
-    let regionSelect = document.getElementById("region");
-    let comunaSelect = document.getElementById("comuna");
-    let temaSelect = document.getElementById("tema")
+  if (!validarEmail(emailInput.value)) msg += "Email incorrecto \n";
+  if (!validarCantidadDeFotos()) msg += "Debes seleccionar entre 1 y 4 fotos.\n";
+  if (!validarTel(telInput.value)) msg += "Teléfono incorrecto \n";
+  if (!validarNombre(nombreInput.value)) msg += "Nombre incorrecto \n";
+  if (!validarSelect("region")) msg += "Debe seleccionar región \n";
+  if (!validarSelect("comuna")) msg += "Debe seleccionar comuna \n";
+  if (!validarSelect("tema")) msg += "Debe seleccionar tema \n";
+  if (!validarFechaInicio()) msg += "La fecha de inicio debe ser mayor a la fecha fin\n";
 
-    let msg = "";
+  if (msg !== "") {
+    alert(msg);
+    return false;
+  }
 
-    if(!validarEmail(emailInput.value)) {
-        msg += "Email incorrecto \n"
-    }
-
-    if (!validarCantidadDeFotos()) {
-      msg += "Debes seleccionar entre 1 y 4 fotos.\n";
-    }
-
-    if(!validarTel(telInput.value)) {
-      msg += "Teléfono incorrecto \n"
-    }
-
-    if(!validarNombre(nombreInput.value)) {
-      msg += "Nombre incorrecto \n"
-    }
-
-    if(!validarSelect("region")){
-      msg += "Debe seleccionar región \n"
-    }
-    
-    if(!validarSelect("comuna")) {
-      msg += "Debe seleccionar comuna \n"
-    }
-
-    if(!validarSelect("tema")) {
-      msg += "Debe seleccionar tema \n"
-    }
-
-    if (!validarFechaInicio()) {
-      msg += "La fecha de inicio debe ser mayor o igual a la fecha actual.\n";
-    }
-
-    if(msg !== ""){
-      alert(msg);
-      return false; // si hay errores, no continúa
-    }
-    
-    
-guardarActividadEnLocalStorage();
-
-alert("¡Actividad guardada correctamente!");
-
-document.getElementById("formulario").reset();
-
-document.getElementById("formulario").style.display = "none";
+  return true;
 }
 
+
+function confirmarEnvio() {
+  const confirmar = confirm("¿Está seguro que desea agregar esta actividad?");
+  if (confirmar) {
+    if (validarForm()) {
+      guardarActividadEnLocalStorage(() => {
+        alert("Actividad agregada con éxito ✅");
+
+        document.getElementById("formulario").reset();
+        document.getElementById("formulario").style.display = "none";
+        actualizarTablaInicio();
+      });
+    }
+  }
+}
+
+function actualizarTablaInicio() {
+  const actividades = JSON.parse(localStorage.getItem("actividades")) || [];
+  const tbody = document.querySelector("#tablaInicio tbody");
+
+  tbody.innerHTML = "";
+
+  actividades.sort((a, b) => new Date(b.fechaGuardado) - new Date(a.fechaGuardado));
+
+  const ultimas = actividades.slice(0, 5);
+
+  ultimas.forEach(act => {
+    const fila = document.createElement("tr");
+
+    let fotoHtml = "Sin foto";
+    if (act.fotosBase64 && act.fotosBase64.length > 0) {
+      fotoHtml = `<img src="${act.fotosBase64[0]}" width="100" height="75" style="object-fit:cover; border-radius:4px;">`;
+    }
+
+    fila.innerHTML = `
+      <td>${act.inicio}</td>
+      <td>${act.fin}</td>
+      <td>${act.comuna}</td>
+      <td>${act.sector}</td>
+      <td>${act.tema}</td>
+      <td>${fotoHtml}</td>
+    `;
+
+    tbody.appendChild(fila);
+  });
+}
 
 
 
 // Guardar formulario
-function guardarActividadEnLocalStorage() {
-  const actividad = {
-    inicio: document.getElementById("inicio").value,
-    fin: document.getElementById("finOculto").value,
-    region: document.getElementById("region").value,
-    comuna: document.getElementById("comuna").value,
-    sector: document.getElementById("sector").value,
-    nombre: document.getElementById("nombre").value,
-    email: document.getElementById("email").value,
-    telefono: document.getElementById("tel").value,
-    contacto: document.getElementById("contacto").value,
-    contactoValor: document.getElementById("contactoValor").value,
-    tema: document.getElementById("tema").value === "otro"
-      ? document.getElementById("temaPersonalizado").value
-      : document.getElementById("tema").value,
-    descripcion: document.getElementById("descripcion").value,
-    totalFotos: document.getElementById("foto").files.length,
-    fechaGuardado: new Date().toISOString()
-  };
+function guardarActividadEnLocalStorage(callback) {
+  const inputsFoto = document.querySelectorAll(".input-foto");
 
-  let actividades = JSON.parse(localStorage.getItem("actividades")) || [];
-  actividades.push(actividad);
-  localStorage.setItem("actividades", JSON.stringify(actividades));
+  let files = [];
+  inputsFoto.forEach(input => {
+    if (input.files.length > 0) {
+      files.push(input.files[0]);
+    }
+  });
+
+  convertirFotosABase64(files, function (fotosBase64) {
+    const actividad = {
+      inicio: document.getElementById("inicio").value,
+      fin: document.getElementById("finOculto").value,
+      region: document.getElementById("region").value,
+      comuna: document.getElementById("comuna").value,
+      sector: document.getElementById("sector").value,
+      nombre: document.getElementById("nombre").value,
+      email: document.getElementById("email").value,
+      telefono: document.getElementById("tel").value,
+      contacto: document.getElementById("contacto").value,
+      contactoValor: document.getElementById("contactoValor").value,
+      tema: document.getElementById("tema").value === "otro"
+        ? document.getElementById("temaPersonalizado").value
+        : document.getElementById("tema").value,
+      descripcion: document.getElementById("descripcion").value,
+      fotosBase64: fotosBase64,
+      totalFotos: fotosBase64.length,
+      fechaGuardado: new Date().toISOString()
+    };
+
+    let actividades = JSON.parse(localStorage.getItem("actividades")) || [];
+    actividades.push(actividad);
+    localStorage.setItem("actividades", JSON.stringify(actividades));
+
+    if (typeof callback === "function") {
+      callback(); 
+    }
+  });
+}
+
+
+function convertirFotosABase64(files, callback) {
+  const fotosBase64 = [];
+  let contador = 0;
+
+  Array.from(files).forEach((file) => {
+    const reader = new FileReader();
+    reader.onload = function (e) {
+      fotosBase64.push(e.target.result); 
+      contador++;
+      if (contador === files.length) {
+        callback(fotosBase64); 
+      }
+    };
+    reader.onerror = function (error) {
+      console.error("Error al convertir la foto a Base64:", error);
+    };
+    reader.readAsDataURL(file); // Leer el archivo como Data URL
+  });
+}
+
+function mostrarMensajeFinal() {
+  const div = document.createElement("div");
+  div.innerHTML = `
+    <p style="text-align: center; font-size: 18px; font-weight: bold;">
+      Hemos recibido su información, muchas gracias y suerte en su actividad.
+    </p>
+    <div style="text-align: center;">
+      <button onclick="window.location.href='Tarea1.html'" style="padding: 10px 20px;">Volver a la portada</button>
+    </div>
+  `;
+  document.body.innerHTML = ""; 
+  document.body.appendChild(div);
 }
