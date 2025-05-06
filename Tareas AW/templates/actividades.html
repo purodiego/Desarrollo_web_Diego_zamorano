@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block title %}Tarea 2{% endblock %}
+{% block css %}
+<link rel="stylesheet" href="static/css/actividades.css">
+{% endblock %}
+{%block content %}
+<body>
+  <h2>Listado de Actividades</h2>
+  <button style="margin-top: 20px; padding: 10px 20px;" onclick="window.location.href='/'">
+    ⬅ Volver al inicio
+  </button>
+  <table id="tablaActividades">
+    <thead>
+      <tr>
+        <th>Inicio</th>
+        <th>Término</th>
+        <th>Comuna</th>
+        <th>Sector</th>
+        <th>Tema</th>
+        <th>Nombre Organizador</th>
+        <th>Total Fotos</th>
+      </tr>
+    </thead>
+    <tbody>
+      
+    </tbody>
+  </table>
+ 
+</body>
+{% endblock %}
+{% block javascript %}
+<script src="static/js/actividades.js"></script>
+{%endblock %}
+
+</html>

@@ -1,0 +1,38 @@
+
+table {
+    margin-top: 20px;
+    border-collapse: collapse;
+    width: 80%;
+}
+th, td {
+    border: 1px solid #333;
+    padding: 8px;
+    text-align: center;
+}
+th {
+    background-color: #f2f2f2;
+}
+
+#formulario {
+    display: none;
+    margin: 20px auto;
+    width: 60%;
+    border: 1px solid #ccc;
+    padding: 15px;
+}
+
+label {
+    display: block;
+    margin-top: 10px;
+}
+
+input {
+    width: 150px;
+    padding: 8px;
+}
+
+.botones {
+    margin-top: 20px;
+    padding: 10px 20px;
+    text-align: center;
+}
